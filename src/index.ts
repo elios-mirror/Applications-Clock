@@ -1,4 +1,4 @@
-import {Module, Controller} from 'elios-sdk';
+import Sdk from 'elios-sdk';
 import * as moment from 'moment-timezone'
 import * as cheerio from 'cheerio'
 
@@ -6,7 +6,7 @@ var html = require('./index.html')
 
 const $ = cheerio.load(html);
 
-export default class Clock implements Module {
+export default class Clock {
     name: string = '';
     installId: string = '';
 
@@ -17,7 +17,10 @@ export default class Clock implements Module {
     it: any;
     timezone: string;
 
-    constructor(private elios: Controller) {
+    elios: Sdk;
+
+    constructor() {
+        this.elios = new Sdk();
         this.timezone = moment.tz.guess();
         console.log('Construtor');
     }
@@ -32,7 +35,7 @@ export default class Clock implements Module {
         timezones.forEach(element => {
             let displayName = element.split('/')
             let tmp = $('<option value="' + element + '">' +
-            displayName[0] + ", " + displayName[1] + '</option>')
+                displayName[0] + ", " + displayName[1] + '</option>')
 
             if (element == this.timezone) {
                 $(tmp).attr("selected", true)
@@ -47,9 +50,7 @@ export default class Clock implements Module {
 
     start() {
         console.log('MODULE STARTED ' + this.name);
-        this.widget = this.elios.createWidget({
-            id: this.installId
-        });
+        this.widget = this.elios.createWidget();
 
         this.fillTimeZones()
         this.changeTimeZone()
@@ -57,7 +58,7 @@ export default class Clock implements Module {
         this.it = setInterval(() => {
 
             $('.clock').text(moment().tz(this.timezone).format('HH:mm:ss'))
-            this.widget.html.next($.html());
+            this.widget.html($.html());
 
         }, 1000);
 
