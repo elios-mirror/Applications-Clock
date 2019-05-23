@@ -69,3 +69,5 @@ export default class Clock {
         console.log('MODULE STOPED ' + this.name);
     }
 }
+
+new Clock().start()
