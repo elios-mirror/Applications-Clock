@@ -4,8 +4,9 @@
   "description": "Module clock for Elios ",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run build ; sudo -iu node node /usr/src/app/dist/index.js",
+    "start": "npm run build ; node dist/index.js",
     "build": "webpack --mode production",
+    "dev": "webpack --watch --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +23,7 @@
     "@types/cheerio": "^0.22.11",
     "@types/moment-timezone": "^0.5.12",
     "cheerio": "^1.0.0-rc.3",
-    "elios-sdk": "^0.1.6",
+    "elios-sdk": "^0.2.2",
     "fs": "0.0.1-security",
     "html-loader": "^0.5.5",
     "moment": "^2.24.0",
@@ -34,7 +35,9 @@
     "css-loader": "^1.0.0",
     "html-css-obfuscator": "^1.0.0",
     "mini-css-extract-plugin": "^0.4.2",
+    "node-loader": "^0.6.0",
     "node-sass": "^4.9.3",
+    "nodemon-webpack-plugin": "^4.1.1",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.1.0",

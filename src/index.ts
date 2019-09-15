@@ -38,7 +38,7 @@ export default class Clock {
                 displayName[0] + ", " + displayName[1] + '</option>')
 
             if (element == this.timezone) {
-                $(tmp).attr("selected", true)
+                $(tmp).attr("selected");
             }
             $('.timeZonesSelect').append(tmp);
         });
@@ -57,7 +57,7 @@ export default class Clock {
 
         this.it = setInterval(() => {
 
-            $('.clock').text(moment().tz(this.timezone).format('HH:mm:ss'))
+            $('.clock').text(Date.now().toString())
             this.widget.html($.html());
 
         }, 1000);

@@ -1,4 +1,5 @@
 const path = require('path');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
     target: 'node',
@@ -20,15 +21,22 @@ module.exports = {
                 options: {
                     limit: 10000
                 }
+            },
+            {
+                test: /\.node$/,
+                use: 'node-loader'
             }
         ]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.html']
+        extensions: ['.tsx', '.ts', '.js', '.html', '.node']
     },
     output: {
         filename: 'index.js',
         libraryTarget: 'commonjs',
         path: path.resolve(__dirname, 'dist')
-    }
+    },
+    plugins: [
+        new NodemonPlugin()
+    ]
 };
