@@ -1,14 +1,33 @@
-<div id="clock-widget">
-    <div class="clock" >
-    </div>
-    <select class="timeZonesSelect">
+<div class="clock-container">
+  <div class="clock">
+  </div>
+  <div class="date">
+
+  </div>
+  <!-- <select class="timeZonesSelect">
         
-    </select>
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
-        .clock {
-          font-size: 2em;
-          font-family: 'Orbitron', sans-serif;
-        }
-    </style>
+    </select> -->
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
+
+    .clock {
+      font-size: 2em;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .date {
+      font-size: 1em;
+      font-family: 'Orbitron', sans-serif;
+      color: rgba(255, 255, 255, 0.75)
+    }
+
+    .clock-container {
+      max-height: 250px;
+      max-width: 250px;
+      width: max-content;
+      height: max-content;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  </style>
 </div>

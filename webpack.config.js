@@ -1,5 +1,6 @@
 const path = require('path');
 const NodemonPlugin = require('nodemon-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     target: 'node',
@@ -13,14 +14,11 @@ module.exports = {
             },
             {
                 test: /\.html/,
-                loader: 'html-css-obfuscator'
+                loader: 'html-loader'
             },
             {
-                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 10000
-                }
+                test: /\.css/,
+                use: 'css-loader'
             },
             {
                 test: /\.node$/,
@@ -33,10 +31,10 @@ module.exports = {
     },
     output: {
         filename: 'index.js',
-        libraryTarget: 'commonjs',
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
-        new NodemonPlugin()
+        new NodemonPlugin(),
+        new HtmlWebpackPlugin()
     ]
 };

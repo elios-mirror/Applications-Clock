@@ -7,67 +7,52 @@ var html = require('./index.html')
 const $ = cheerio.load(html);
 
 export default class Clock {
-    name: string = '';
-    installId: string = '';
+    sdk: Sdk
 
-    requireVersion: string = '0.0.1';
-    showOnStart: boolean = true;
-
-    widget: any;
     it: any;
     timezone: string;
 
-    elios: Sdk;
-
     constructor() {
-        this.elios = new Sdk();
-        this.timezone = moment.tz.guess();
+        this.sdk = new Sdk();
+        // TODO Fix the wrong timezone from the browser.
+        // this.timezone = moment.tz.guess(true);
+        this.timezone = 'Europe/Paris';
         console.log('Construtor');
     }
 
-    init() {
-        console.log('MODULE DEV LOADED ' + this.name);
-    }
+    // fillTimeZones() {
+    //     let timezones = moment.tz.names()
 
-    fillTimeZones() {
-        let timezones = moment.tz.names()
+    //     timezones.forEach(element => {
+    //         let displayName = element.split('/')
+    //         let tmp = $('<option value="' + element + '">' +
+    //         displayName[0] + ", " + displayName[1] + '</option>')
 
-        timezones.forEach(element => {
-            let displayName = element.split('/')
-            let tmp = $('<option value="' + element + '">' +
-                displayName[0] + ", " + displayName[1] + '</option>')
+    //         if (element == this.timezone) {
+    //             $(tmp).attr("selected", 'true')
+    //         }
+    //         $('.timeZonesSelect').append(tmp);
+    //     });
+    // }
 
-            if (element == this.timezone) {
-                $(tmp).attr("selected");
-            }
-            $('.timeZonesSelect').append(tmp);
-        });
-    }
-
-    changeTimeZone() {
-        this.timezone = $('.timeZonesSelect option[selected]').val()
-    }
+    // changeTimeZone() {
+    //     this.timezone = $('.timeZonesSelect option[selected]').val()
+    // }
 
     start() {
-        console.log('MODULE STARTED ' + this.name);
-        this.widget = this.elios.createWidget();
+        const clockWidget = this.sdk.createWidget();
+        
+        // this.fillTimeZones()
 
-        this.fillTimeZones()
-        this.changeTimeZone()
+        setInterval(() => {
 
-        this.it = setInterval(() => {
-
-            $('.clock').text(Date.now().toString())
-            this.widget.html($.html());
+            $('.clock').text(moment().tz(this.timezone).format('HH:mm:ss'))
+            $('.date').text(moment().format('ddd Do MMM YYYY'))
+            clockWidget.html($.html());
 
         }, 1000);
 
     }
-
-    stop() {
-        clearInterval(this.it);
-        console.log('MODULE STOPED ' + this.name);
-    }
 }
 
-new Clock().start()
+new Clock().start();
