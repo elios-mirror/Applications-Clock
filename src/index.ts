@@ -48,7 +48,7 @@ export default class Clock {
         var minutes = date.getMinutes();
         var hours = date.getHours();
 
-        this.sdk.config().then((config) => {
+        this.sdk.config().subscribe((config) => {
             console.log('config is ', config);
         });
 
