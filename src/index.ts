@@ -1,16 +1,18 @@
 import Sdk from 'elios-sdk';
-import * as moment from 'moment-timezone'
-import * as cheerio from 'cheerio'
+import Widget from 'elios-sdk/lib/widget';
+const { JSDOM } = require("jsdom");
 
 var html = require('./index.html')
 
-const $ = cheerio.load(html);
+const dom = (new JSDOM(html));
+const { document } = dom.window;
 
 export default class Clock {
     sdk: Sdk
 
     it: any;
     timezone: string;
+    clockWidget: Widget;
 
     constructor() {
         this.sdk = new Sdk();
@@ -40,18 +42,50 @@ export default class Clock {
     // }
 
     start() {
-        const clockWidget = this.sdk.createWidget();
-        
-        // this.fillTimeZones()
+        this.clockWidget = this.sdk.createWidget();
+        var date = new Date;
+        var seconds = date.getSeconds();
+        var minutes = date.getMinutes();
+        var hours = date.getHours();
 
+        this.sdk.config().then((config) => {
+            console.log('config is ', config);
+        });
+
+        var hands = [
+            {
+                hand: 'hours',
+                angle: (hours * 30) + (minutes / 2)
+            },
+            {
+                hand: 'minutes',
+                angle: (minutes * 6)
+            },
+            {
+                hand: 'seconds',
+                angle: (seconds * 6)
+            }
+        ];
+        for (var j = 0; j < hands.length; j++) {
+            var elements = document.querySelectorAll('.' + hands[j].hand);
+            for (var k = 0; k < elements.length; k++) {
+                elements[k].style.webkitTransform = 'rotateZ(' + hands[j].angle + 'deg)';
+                elements[k].style.transform = 'rotateZ(' + hands[j].angle + 'deg)';
+                if (hands[j].hand === 'minutes') {
+                    elements[k].parentNode.setAttribute('data-second-angle', hands[j + 1].angle);
+                }
+            }
+        }
+
+
+        this.render();
         setInterval(() => {
+            this.render();
+        }, 5000);
+    }
 
-            $('.clock').text(moment().tz(this.timezone).format('HH:mm:ss'))
-            $('.date').text(moment().format('ddd Do MMM YYYY'))
-            clockWidget.html($.html());
-
-        }, 1000);
-
+    render() {
+        this.clockWidget.html(document.body.innerHTML);
     }
 }
 

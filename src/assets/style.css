@@ -1,19 +1,6 @@
-<article class="clock">
-  <div class="hours-container">
-    <div class="hours"></div>
-  </div>
-  <div class="minutes-container">
-    <div class="minutes"></div>
-  </div>
-  <div class="seconds-container">
-    <div class="seconds"></div>
-  </div>
-</article>
-
-<style>
 .clock {
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0) url("./ios_clock.svg") no-repeat center;
+  background: url("./ios_clock.svg") no-repeat center;
   background-size: 88%;
   border-color: #fff;
   border-width: 3px;
@@ -95,5 +82,3 @@
 .seconds-container {
   animation: rotate 60s infinite linear;
 }
-
-</style>
