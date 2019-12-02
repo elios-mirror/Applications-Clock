@@ -1,5 +1,6 @@
 import Sdk from 'elios-sdk';
 import Widget from 'elios-sdk/lib/widget';
+import moment = require('moment-timezone');
 const { JSDOM } = require("jsdom");
 
 var html = require('./index.html')
@@ -12,41 +13,44 @@ export default class Clock {
 
     it: any;
     timezone: string;
+    style: any
     clockWidget: Widget;
 
     constructor() {
         this.sdk = new Sdk();
-        // TODO Fix the wrong timezone from the browser.
-        // this.timezone = moment.tz.guess(true);
-        this.timezone = 'Europe/Paris';
+
+        this.sdk.config().then((conf: any) => {
+            this.configChange(conf)
+        });
         console.log('Construtor');
     }
 
-    // fillTimeZones() {
-    //     let timezones = moment.tz.names()
+    configChange(conf: any) {
+        this.timezone = conf.timezone.value
+        this.style = conf.style.value
+        if (this.style === 'analog') {
+            document.querySelector("analog_clock").style.display = "inline"
+            document.querySelector("digital_clock").style.display = "none"
+        } else {
+            document.querySelector("analog_clock").style.display = "none"
+            document.querySelector("digital_clock").style.display = "inline"
+        }
+    }
 
-    //     timezones.forEach(element => {
-    //         let displayName = element.split('/')
-    //         let tmp = $('<option value="' + element + '">' +
-    //         displayName[0] + ", " + displayName[1] + '</option>')
+    renderDigital() {
+        this.sdk.config().then((config) => {
+            console.log('config is ', config);
+        });
 
-    //         if (element == this.timezone) {
-    //             $(tmp).attr("selected", 'true')
-    //         }
-    //         $('.timeZonesSelect').append(tmp);
-    //     });
-    // }
+        document.querySelector(".clock").textContent = moment().tz('Europe/Paris').format('HH:mm:ss')
+        document.querySelector('.clock_date').textContent = moment().format('ddd Do MMM YYYY')
+    }
 
-    // changeTimeZone() {
-    //     this.timezone = $('.timeZonesSelect option[selected]').val()
-    // }
-
-    start() {
-        this.clockWidget = this.sdk.createWidget();
-        var date = new Date;
-        var seconds = date.getSeconds();
-        var minutes = date.getMinutes();
-        var hours = date.getHours();
+    renderAnalog() {
+        var date = moment.tz(this.timezone).toDate();
+        var seconds = date.getUTCSeconds();
+        var minutes = date.getUTCMinutes();
+        var hours = date.getUTCHours();
 
         this.sdk.config().then((config) => {
             console.log('config is ', config);
@@ -66,6 +70,7 @@ export default class Clock {
                 angle: (seconds * 6)
             }
         ];
+        
         for (var j = 0; j < hands.length; j++) {
             var elements = document.querySelectorAll('.' + hands[j].hand);
             for (var k = 0; k < elements.length; k++) {
@@ -76,15 +81,24 @@ export default class Clock {
                 }
             }
         }
+    }
 
+    start() {
+        this.clockWidget = this.sdk.createWidget();
 
         this.render();
         setInterval(() => {
             this.render();
-        }, 5000);
+        }, 1000);
     }
 
     render() {
+
+        if (this.style === 'analog') {
+            this.renderAnalog()
+        } else {
+            this.renderDigital()
+        }
         this.clockWidget.html(document.body.innerHTML);
     }
 }

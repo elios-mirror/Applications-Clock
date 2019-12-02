@@ -13,28 +13,6 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          'style-loader',
-          // Translates CSS into CommonJS
-          'css-loader',
-          // Compiles Sass to CSS
-          'sass-loader',
-        ],
-      },
-      {
-        test: /\.html$/,
-        use: [{
-          loader: "html-loader",
-          options: {
-            ignoreCustomFragments: [/\{\{.*?}}/],
-            root: path.resolve(__dirname, 'assets'),
-            attrs: ['img:src', 'link:href']
-          }
-        },]
-      },
-      {
         test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
         loader: 'url-loader',
         options: {
@@ -44,6 +22,10 @@ module.exports = {
       {
         test: /\.node$/,
         use: 'node-loader'
+      },
+      {
+        test: /\.html$/,
+        use: 'html-loader'
       }
     ]
   },
