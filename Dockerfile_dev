@@ -1,5 +1,5 @@
 # FROM alpine:latest
-FROM node:10
+FROM node:13.2.0
 
 # Create app directory
 WORKDIR /opt/app

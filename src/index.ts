@@ -19,7 +19,7 @@ export default class Clock {
     constructor() {
         this.sdk = new Sdk();
 
-        this.sdk.config().then((conf: any) => {
+        this.sdk.config().subscribe((conf: any) => {
             this.configChange(conf)
         });
         console.log('Construtor');
@@ -38,10 +38,6 @@ export default class Clock {
     }
 
     renderDigital() {
-        this.sdk.config().then((config) => {
-            console.log('config is ', config);
-        });
-
         document.querySelector(".clock").textContent = moment().tz('Europe/Paris').format('HH:mm:ss')
         document.querySelector('.clock_date').textContent = moment().format('ddd Do MMM YYYY')
     }
@@ -51,10 +47,6 @@ export default class Clock {
         var seconds = date.getUTCSeconds();
         var minutes = date.getUTCMinutes();
         var hours = date.getUTCHours();
-
-        this.sdk.config().then((config) => {
-            console.log('config is ', config);
-        });
 
         var hands = [
             {
