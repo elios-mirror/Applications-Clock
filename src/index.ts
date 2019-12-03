@@ -12,8 +12,8 @@ export default class Clock {
     sdk: Sdk
 
     it: any;
-    timezone: string;
-    style: any
+    timezone: string = 'Europe, France';
+    style: any = 'analog';
     clockWidget: Widget;
 
     constructor() {
@@ -26,14 +26,18 @@ export default class Clock {
     }
 
     configChange(conf: any) {
-        this.timezone = conf.timezone.value
-        this.style = conf.style.value
+        if (conf.timezone) {
+            this.timezone = conf.timezone
+        }
+        if (conf.style) {
+            this.style = conf.style
+        }
         if (this.style === 'analog') {
-            document.querySelector("analog_clock").style.display = "inline"
-            document.querySelector("digital_clock").style.display = "none"
+            document.querySelector(".analog_clock").style.display = "block"
+            document.querySelector(".digital_clock").style.display = "none"
         } else {
-            document.querySelector("analog_clock").style.display = "none"
-            document.querySelector("digital_clock").style.display = "inline"
+            document.querySelector(".analog_clock").style.display = "none"
+            document.querySelector(".digital_clock").style.display = "block"
         }
     }
 
@@ -62,7 +66,7 @@ export default class Clock {
                 angle: (seconds * 6)
             }
         ];
-        
+
         for (var j = 0; j < hands.length; j++) {
             var elements = document.querySelectorAll('.' + hands[j].hand);
             for (var k = 0; k < elements.length; k++) {
