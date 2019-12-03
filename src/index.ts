@@ -21,6 +21,7 @@ export default class Clock {
 
         this.sdk.config().subscribe((conf: any) => {
             this.configChange(conf)
+            this.render()
         });
         console.log('Construtor');
     }
