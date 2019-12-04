@@ -22,12 +22,104 @@
         "required": true,
         "values": [
             {
-                "text": "Africa , Abidjan",
-                "value": "Africa/Abidjan"
+                "text": "Etc , GMT0",
+                "value": "Etc/GMT0"
             },
             {
-                "text": "Africa , Accra",
-                "value": "Africa/Accra"
+                "text": "Etc , GMT+1",
+                "value": "Etc/GMT+1"
+            },
+            {
+                "text": "Etc , GMT+2",
+                "value": "Etc/GMT+2"
+            },
+            {
+                "text": "Etc , GMT+3",
+                "value": "Etc/GMT+3"
+            },
+            {
+                "text": "Etc , GMT+4",
+                "value": "Etc/GMT+4"
+            },
+            {
+                "text": "Etc , GMT+5",
+                "value": "Etc/GMT+5"
+            },
+            {
+                "text": "Etc , GMT+6",
+                "value": "Etc/GMT+6"
+            },
+            {
+                "text": "Etc , GMT+7",
+                "value": "Etc/GMT+7"
+            },
+            {
+                "text": "Etc , GMT+8",
+                "value": "Etc/GMT+8"
+            },
+            {
+                "text": "Etc , GMT+9",
+                "value": "Etc/GMT+9"
+            },
+            {
+                "text": "Etc , GMT+10",
+                "value": "Etc/GMT+10"
+            },
+            {
+                "text": "Etc , GMT+11",
+                "value": "Etc/GMT+11"
+            },
+            {
+                "text": "Etc , GMT+12",
+                "value": "Etc/GMT+12"
+            },
+            {
+                "text": "Etc , GMT-1",
+                "value": "Etc/GMT-1"
+            },
+            {
+                "text": "Etc , GMT-2",
+                "value": "Etc/GMT-2"
+            },
+            {
+                "text": "Etc , GMT-3",
+                "value": "Etc/GMT-3"
+            },
+            {
+                "text": "Etc , GMT-4",
+                "value": "Etc/GMT-4"
+            },
+            {
+                "text": "Etc , GMT-5",
+                "value": "Etc/GMT-5"
+            },
+            {
+                "text": "Etc , GMT-6",
+                "value": "Etc/GMT-6"
+            },
+            {
+                "text": "Etc , GMT-7",
+                "value": "Etc/GMT-7"
+            },
+            {
+                "text": "Etc , GMT-8",
+                "value": "Etc/GMT-8"
+            },
+            {
+                "text": "Etc , GMT-9",
+                "value": "Etc/GMT-9"
+            },
+            {
+                "text": "Etc , GMT-10",
+                "value": "Etc/GMT-10"
+            },
+            {
+                "text": "Etc , GMT-11",
+                "value": "Etc/GMT-11"
+            },
+            {
+                "text": "Etc , GMT-12",
+                "value": "Etc/GMT-12"
             }
         ]
     }

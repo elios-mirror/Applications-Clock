@@ -12,7 +12,7 @@ export default class Clock {
     sdk: Sdk
 
     it: any;
-    timezone: string = 'Europe, France';
+    timezone: string = 'Europe/Paris';
     style: any = 'analog';
     clockWidget: Widget;
 
@@ -43,15 +43,16 @@ export default class Clock {
     }
 
     renderDigital() {
-        document.querySelector(".clock").textContent = moment().tz('Europe/Paris').format('HH:mm:ss')
+        document.querySelector(".clock").textContent = moment().tz(this.timezone).format('HH:mm:ss')
         document.querySelector('.clock_date').textContent = moment().format('ddd Do MMM YYYY')
     }
 
     renderAnalog() {
-        var date = moment.tz(this.timezone).toDate();
-        var seconds = date.getUTCSeconds();
-        var minutes = date.getUTCMinutes();
-        var hours = date.getUTCHours();
+        var date = moment.tz(this.timezone);
+        
+        var seconds = parseInt(date.format('s'));
+        var minutes = parseInt(date.format('m'));
+        var hours = parseInt(date.format('H'));
 
         var hands = [
             {
