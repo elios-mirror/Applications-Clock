@@ -45,6 +45,7 @@ export default class Clock {
     renderDigital() {
         document.querySelector(".clock").textContent = moment().tz(this.timezone).format('HH:mm:ss')
         document.querySelector('.clock_date').textContent = moment().format('ddd Do MMM YYYY')
+        this.clockWidget.html(document.body.innerHTML);
     }
 
     renderAnalog() {
@@ -79,6 +80,8 @@ export default class Clock {
                 }
             }
         }
+
+        this.clockWidget.html(document.body.innerHTML);
     }
 
     start() {
@@ -97,7 +100,6 @@ export default class Clock {
         } else {
             this.renderDigital()
         }
-        this.clockWidget.html(document.body.innerHTML);
     }
 }
 
